@@ -1,0 +1,9 @@
+requests
+beautifulsoup4
+pandas
+jinja2
+python-dotenv
+lxml
+plotly
+kaleido
+Office365-REST-Python-Client
