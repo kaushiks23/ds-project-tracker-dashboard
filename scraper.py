@@ -155,13 +155,25 @@ if __name__ == "__main__":
         # ── Chart 1: Count of Use Cases by Client ────────────────────────────────
         client_counts = df["Client"].value_counts().reset_index()
         client_counts.columns = ["Client", "Count"]
-        fig_client_bar = px.bar(client_counts, x="Count", y="Client", orientation="h",
-                                title="Count of Use Cases by Client", color="Client",
-                                color_discrete_sequence=get_colors(len(client_counts)), text="Count")
-        fig_client_bar.update_layout(showlegend=False, plot_bgcolor="white", paper_bgcolor="white",
-                                     title_font=dict(size=16), yaxis=dict(autorange="reversed"))
-        fig_client_bar.update_traces(textposition="outside")
-
+        fig_client_bar = px.bar(
+        client_counts,
+        x="Client",
+        y="Count",
+        title="Count of Use Cases by Client",
+        color="Client",
+        color_discrete_sequence=get_colors(len(client_counts)),
+        text="Count"
+    )
+        fig_client_bar.update_layout(
+            showlegend=False,
+            plot_bgcolor="white",
+            paper_bgcolor="white",
+            title_font=dict(size=16),
+            height=500,
+            margin=dict(l=40, r=40, t=60, b=100),
+            xaxis=dict(tickangle=-45)
+        )
+        fig_client_bar.update_traces(textposition="outside", textfont=dict(size=11, color="black"))
         # ── Chart 2: Use Cases Distribution by Client (Donut) ────────────────────
         uc_counts = df["Client"].value_counts()
         top_clients = uc_counts.nlargest(10)
@@ -193,14 +205,26 @@ if __name__ == "__main__":
         tech_counts = Counter(tech_list)
         df_tech = pd.DataFrame(tech_counts.items(), columns=["Technology", "Count"])
         df_tech = df_tech.sort_values("Count", ascending=False).head(15)
-        fig_tech_bar = px.bar(df_tech, x="Count", y="Technology", orientation="h",
-                              title="Top 15 Core Technologies Used", color="Technology",
-                              color_discrete_sequence=get_colors(len(df_tech)), text="Count")
-        fig_tech_bar.update_layout(showlegend=False, plot_bgcolor="white", paper_bgcolor="white",
-                                   title_font=dict(size=16), yaxis=dict(autorange="reversed"))
-        fig_tech_bar.update_traces(textposition="outside")
-
-        # ── Chart 5: Top Core Technologies Donut ─────────────────────────────────
+        fig_tech_bar = px.bar(
+            df_tech,
+            x="Technology",
+            y="Count",
+            title="Top 15 Core Technologies Used",
+            color="Technology",
+            color_discrete_sequence=get_colors(len(df_tech)),
+            text="Count"
+        )
+        fig_tech_bar.update_layout(
+            showlegend=False,
+            plot_bgcolor="white",
+            paper_bgcolor="white",
+            title_font=dict(size=16),
+            height=500,
+            margin=dict(l=40, r=40, t=60, b=120),
+            xaxis=dict(tickangle=-45)
+        )
+        fig_tech_bar.update_traces(textposition="outside", textfont=dict(size=11, color="black"))
+                # ── Chart 5: Top Core Technologies Donut ─────────────────────────────────
         df_tech_all = pd.DataFrame(tech_counts.items(), columns=["Core Technology", "Count"])
         df_tech_all = df_tech_all.sort_values("Count", ascending=False)
         top_20 = df_tech_all.head(20)
@@ -227,12 +251,25 @@ if __name__ == "__main__":
             df_domain = pd.DataFrame(domain_counts.items(), columns=["Business Domain", "Count"])
             df_domain["Business Domain"] = df_domain["Business Domain"].str.title()
             df_domain = df_domain.sort_values("Count", ascending=False).head(15)
-            fig_domain_bar = px.bar(df_domain, x="Count", y="Business Domain", orientation="h",
-                                    title="Top 15 Business Domains", color="Business Domain",
-                                    color_discrete_sequence=get_colors(len(df_domain)), text="Count")
-            fig_domain_bar.update_layout(showlegend=False, plot_bgcolor="white", paper_bgcolor="white",
-                                         title_font=dict(size=16), yaxis=dict(autorange="reversed"))
-            fig_domain_bar.update_traces(textposition="outside")
+            fig_domain_bar = px.bar(
+    df_domain,
+    x="Business Domain",
+    y="Count",
+    title="Top 15 Business Domains",
+    color="Business Domain",
+    color_discrete_sequence=get_colors(len(df_domain)),
+    text="Count"
+)
+            fig_domain_bar.update_layout(
+                showlegend=False,
+                plot_bgcolor="white",
+                paper_bgcolor="white",
+                title_font=dict(size=16),
+                height=500,
+                margin=dict(l=40, r=40, t=60, b=120),
+                xaxis=dict(tickangle=-45)
+            )
+            fig_domain_bar.update_traces(textposition="outside", textfont=dict(size=11, color="black"))
         else:
             fig_domain_bar = go.Figure()
             fig_domain_bar.update_layout(title="Business Domain column not found")
