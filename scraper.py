@@ -109,11 +109,10 @@ def anonymise_columns(df):
         print(f"🔒 Anonymised 'Client': {len(client_map)} unique values mapped.")
     else:
         print("⚠️ 'Client' column not found — skipping.")
-
-    if "Project Name" in df.columns:
+    if "Use case" in df.columns:
+        df["Use case"] = df["Use case"].fillna("")
         for real_name, alias in client_map.items():
-            df["Project Name"] = df["Project Name"].str.replace(real_name, alias, case=False)
-
+            df["Use case"] = df["Use case"].str.replace(real_name, alias, case=False, regex=False)
     return df
 
 
